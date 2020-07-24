@@ -1,6 +1,8 @@
 
 import random
 import numpy as np
+from array2gif import write_gif 
+import cv2
 
 
 class Environment:
@@ -85,3 +87,22 @@ class Environment:
         self.enermies_queue = [(-2, random.choice([0, 1]))]
         self.time_frame = self.refresh_frame
         self.player = (9, random.choice([0, 1]))
+
+# history là mảng môi trường tại một thời điểm, score là điểm tại lúc đó
+def create_img(history, score):
+    img = np.zeros((40*12, 480, 3), dtype = "uint8")
+    img[:, 200:360] = 255
+    font = cv2.FONT_HERSHEY_SIMPLEX 
+    cv2.putText(img, 'SCORE: {}'.format(score), (10, 20), 
+            font, 0.3, (0, 255, 0), 1, cv2.LINE_AA)
+    for i in range(12):
+        for j in range(4):
+            if history[i][j] == -1:
+                cv2.rectangle(img, (j*40+200, i*40), (j*40+240, i*40+40), (100, 100, 255), cv2.FILLED)
+            elif history[i][j] == 1:
+                cv2.rectangle(img, (j*40+200, i*40), (j*40+240, i*40+40), (255, 100, 100), cv2.FILLED)
+    return img
+
+# Hiện ảnh thì cv2.imshow(img)
+                    self.enermies_queue.append((-2, x_s[0]))ảnh 
+                    self.enermies_queue.append((-2, x_s[0]))
